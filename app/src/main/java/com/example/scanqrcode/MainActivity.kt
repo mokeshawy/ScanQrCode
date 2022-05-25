@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         handleClickScanQrCode()
     }
 
+    val name = "Mohamed Keshawy"
+
+
     private fun handleClickScanQrCode() {
         binding.startScan.setOnClickListener {
             resultScan.launch(ScanOptions())
