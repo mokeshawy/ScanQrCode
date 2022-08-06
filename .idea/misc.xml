@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../Android/Sdk/platforms/android-31/data/res/drawable/btn_minus.xml" value="0.2845" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
       </map>
     </option>

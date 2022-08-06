@@ -3,6 +3,7 @@ package com.example.scanqrcode
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.scanqrcode.databinding.ActivityMainBinding
 import com.google.zxing.*
@@ -22,17 +23,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         handleClickScanQrCode()
-    }
 
-    val name = "Mohamed Keshawy"
+
+    }
 
 
     private fun handleClickScanQrCode() {
         binding.startScan.setOnClickListener {
-            resultScan.launch(ScanOptions())
+            handlePermissionOfCamera()
         }
-
     }
+
+
+    private fun handlePermissionOfCamera() {
+        permissionCallback.launch(android.Manifest.permission.CAMERA)
+    }
+
+    private val permissionCallback =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGarnted ->
+            if (isGarnted) {
+                resultScan.launch(ScanOptions())
+            } else {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private val resultScan = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
         if (result.contents == null) {
@@ -41,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
         }
     }
+
 
     fun detectBarCode(bitmap: Bitmap): String? {
         val stream = ByteArrayOutputStream()
