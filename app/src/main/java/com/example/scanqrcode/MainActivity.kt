@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun handleClickScanQrCode() {
         binding.startScan.setOnClickListener {
             handlePermissionOfCamera()
